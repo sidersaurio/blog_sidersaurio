@@ -35,11 +35,7 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 								<span class="code-dot"></span>
 								<span class="code-dot"></span>
 							</div>
-							<pre><code>{`// Welcome to our blog
-const passion = "Technology";
-const focus = "Web Development";
-
-console.log("Let's build something amazing!");</code}</code></pre>
+							<pre><code>{"// Welcome to our blog\nconst passion = \"Technology\";\nconst focus = \"Web Development\";\n\nconsole.log(\"Let's build something amazing!\");"}</code></pre>
 						</div>
 					</div>
 				</div>
@@ -59,7 +55,7 @@ console.log("Let's build something amazing!");</code}</code></pre>
 								<article class="post-card">
 									{post.data.heroImage && (
 										<div class="post-image">
-											<img src={post.data.heroImage.src} alt={post.data.title} />
+											<img src={typeof post.data.heroImage === 'string' ? post.data.heroImage : post.data.heroImage.src} alt={post.data.title} />
 										</div>
 									)}
 									<div class="post-content">
