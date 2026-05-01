@@ -62,11 +62,7 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 										<h3>{post.data.title}</h3>
 										<p class="post-description">{post.data.description}</p>
 										<time class="post-date">
-											{post.data.pubDate.toLocaleDateString('es-ES', {
-												year: 'numeric',
-												month: 'long',
-												day: 'numeric',
-											})}
+											{new Date(post.data.pubDate).toLocaleDateString('es-ES')}
 										</time>
 										<a href={`/blog/${post.slug}`} class="read-more">Leer más →</a>
 									</div>
