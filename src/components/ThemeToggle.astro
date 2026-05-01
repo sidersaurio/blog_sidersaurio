@@ -1,0 +1,128 @@
+---
+// ThemeToggle.astro
+// Gummies Design System — sun/moon toggle for dark ↔ light mode.
+// State is stored in localStorage under the key "gm-theme" and applied
+// to document.documentElement as [data-theme="dark"|"light"].
+---
+
+<button
+  id="gm-theme-toggle"
+  type="button"
+  aria-label="Switch to light mode"
+  aria-pressed="false"
+  title="Toggle colour theme"
+>
+  <!-- Sun icon (shown in dark mode — click to go light) -->
+  <svg
+    class="icon-sun"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    width="20"
+    height="20"
+  >
+    <circle cx="12" cy="12" r="4" />
+    <line x1="12" y1="2"  x2="12" y2="4"  />
+    <line x1="12" y1="20" x2="12" y2="22" />
+    <line x1="4.22" y1="4.22"   x2="5.64" y2="5.64"   />
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+    <line x1="2"  y1="12" x2="4"  y2="12" />
+    <line x1="20" y1="12" x2="22" y2="12" />
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+  </svg>
+
+  <!-- Moon icon (shown in light mode — click to go dark) -->
+  <svg
+    class="icon-moon"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    width="20"
+    height="20"
+  >
+    <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
+  </svg>
+</button>
+
+<style>
+  #gm-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: 2px solid var(--gm-border);
+    border-radius: var(--gm-radius-sm);
+    background: var(--gm-surface);
+    color: var(--gm-muted);
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  #gm-theme-toggle:hover {
+    border-color: var(--gm-accent);
+    color: var(--gm-accent);
+    box-shadow: 0 0 0 3px oklch(from var(--gm-accent) l c h / 20%);
+  }
+
+  #gm-theme-toggle:focus-visible {
+    outline: 3px solid var(--gm-accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #gm-theme-toggle {
+      transition: none;
+    }
+  }
+
+  /* Icon visibility logic driven by data-theme on <html> */
+  .icon-moon { display: none; }
+  .icon-sun  { display: block; }
+
+  :global([data-theme="light"]) #gm-theme-toggle .icon-sun  { display: none; }
+  :global([data-theme="light"]) #gm-theme-toggle .icon-moon { display: block; }
+</style>
+
+<script>
+  (function () {
+    const btn = document.getElementById('gm-theme-toggle') as HTMLButtonElement | null;
+    if (!btn) return;
+
+    function getTheme(): string {
+      return document.documentElement.getAttribute('data-theme') ?? 'dark';
+    }
+
+    function applyTheme(theme: string): void {
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem('gm-theme', theme); } catch (_) {}
+      const isLight = theme === 'light';
+      btn!.setAttribute('aria-pressed', String(isLight));
+      btn!.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+    }
+
+    // Sync button state on load
+    applyTheme(getTheme());
+
+    btn.addEventListener('click', () => {
+      const next = getTheme() === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+  })();
+</script>

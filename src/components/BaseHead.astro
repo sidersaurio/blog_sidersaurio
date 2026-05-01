@@ -20,6 +20,19 @@ const { title, description, image = FallbackImage } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="dark light" />
+
+<!-- Gummies: anti-flash theme initialiser — must run before first paint -->
+<script is:inline>
+  (function () {
+    try {
+      var stored = localStorage.getItem('gm-theme');
+      var preferred = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      var theme = stored === 'light' || stored === 'dark' ? stored : preferred;
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (_) {}
+  })();
+</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
