@@ -37,9 +37,9 @@ const today = new Date();
 
 <style>
 	footer {
-		background: var(--bg-secondary);
-		border-top: 1px solid var(--border-color);
-		color: var(--text-secondary);
+		background: var(--card);
+		border-top: 1px solid var(--border);
+		color: var(--muted-foreground);
 		margin-top: 4rem;
 		transition: var(--transition);
 	}
@@ -59,7 +59,7 @@ const today = new Date();
 
 	.footer-section h3,
 	.footer-section h4 {
-		color: var(--text-primary);
+		color: var(--foreground);
 		font-size: 1.125rem;
 		margin-bottom: 1rem;
 		font-weight: 700;
@@ -81,23 +81,23 @@ const today = new Date();
 	}
 
 	.footer-section a {
-		color: var(--text-secondary);
+		color: var(--muted-foreground);
 		text-decoration: none;
 		transition: var(--transition);
 		font-size: 0.95rem;
 	}
 
 	.footer-section a:hover {
-		color: var(--accent-purple);
+		color: var(--primary);
 		text-decoration: none;
 	}
 
 	.footer-bottom {
 		text-align: center;
 		padding-top: 1.5rem;
-		border-top: 1px solid var(--border-color);
+		border-top: 1px solid var(--border);
 		font-size: 0.9rem;
-		color: var(--text-tertiary);
+		color: var(--muted);
 	}
 
 	.footer-bottom p {
@@ -120,4 +120,3 @@ const today = new Date();
 		}
 	}
 </style>
-

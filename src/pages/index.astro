@@ -31,9 +31,9 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 					<div class="hero-visual">
 						<div class="code-block">
 							<div class="code-header">
-								<span class="code-dot"></span>
-								<span class="code-dot"></span>
-								<span class="code-dot"></span>
+								<span class="code-dot code-dot-red"></span>
+								<span class="code-dot code-dot-yellow"></span>
+								<span class="code-dot code-dot-green"></span>
 							</div>
 							<pre><code>{"// Welcome to our blog\nconst passion = \"Technology\";\nconst focus = \"Web Development\";\n\nconsole.log(\"Let's build something amazing!\");"}</code></pre>
 						</div>
@@ -98,8 +98,8 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 		align-items: center;
 		justify-content: center;
 		padding: 4rem 1rem;
-		background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
-		border-bottom: 1px solid var(--border-color);
+		background: linear-gradient(135deg, oklch(0.5924 0.2025 355.8943 / 0.1) 0%, oklch(0.5808 0.1732 39.5003 / 0.1) 100%);
+		border-bottom: 1px solid var(--border);
 	}
 
 	.hero .container {
@@ -117,7 +117,7 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 
 	.hero-subtitle {
 		font-size: 1.25rem;
-		color: var(--text-secondary);
+		color: var(--muted-foreground);
 		margin-bottom: 2rem;
 		line-height: 1.6;
 	}
@@ -130,7 +130,7 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 
 	.btn {
 		padding: 0.875rem 2rem;
-		border-radius: 0.5rem;
+		border-radius: var(--radius);
 		font-weight: 600;
 		text-decoration: none;
 		transition: var(--transition);
@@ -139,27 +139,27 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 	}
 
 	.btn-primary {
-		background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-blue) 100%);
-		color: white;
-		box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+		background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+		color: var(--primary-foreground);
+		box-shadow: var(--shadow-md);
 	}
 
 	.btn-primary:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+		box-shadow: var(--shadow-xl);
 		text-decoration: none;
-		color: white;
+		color: var(--primary-foreground);
 	}
 
 	.btn-secondary {
-		background: var(--bg-secondary);
-		color: var(--text-primary);
-		border: 1px solid var(--border-color);
+		background: var(--card);
+		color: var(--foreground);
+		border: 1px solid var(--border);
 	}
 
 	.btn-secondary:hover {
-		background: var(--bg-tertiary);
-		border-color: var(--accent-purple);
+		background: var(--muted);
+		border-color: var(--primary);
 		transform: translateY(-2px);
 		text-decoration: none;
 	}
@@ -171,13 +171,13 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 	}
 
 	.code-block {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: 0.75rem;
+		background: var(--card);
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
 		padding: 1rem;
 		width: 100%;
 		max-width: 450px;
-		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+		box-shadow: var(--shadow-lg);
 	}
 
 	.code-header {
@@ -190,8 +190,19 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 		width: 0.75rem;
 		height: 0.75rem;
 		border-radius: 50%;
-		background: var(--border-color);
 		display: block;
+	}
+
+	.code-dot-red {
+		background: var(--destructive);
+	}
+
+	.code-dot-yellow {
+		background: var(--accent);
+	}
+
+	.code-dot-green {
+		background: var(--secondary);
 	}
 
 	.code-block pre {
@@ -201,19 +212,18 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 		margin: 0;
 		font-size: 0.875rem;
 		line-height: 1.6;
-		color: var(--accent-neon);
 	}
 
 	.code-block code {
 		background: transparent;
 		padding: 0;
-		color: var(--text-secondary);
-		font-family: 'JetBrains Mono', monospace;
+		color: var(--secondary);
+		font-family: var(--font-mono);
 	}
 
 	.featured-posts {
 		padding: 6rem 1rem;
-		background: var(--bg-primary);
+		background: var(--background);
 	}
 
 	.section-header {
@@ -228,7 +238,7 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 
 	.section-header p {
 		font-size: 1.125rem;
-		color: var(--text-secondary);
+		color: var(--muted-foreground);
 	}
 
 	.posts-grid {
@@ -238,9 +248,9 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 	}
 
 	.post-card {
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: 0.75rem;
+		background: var(--card);
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
 		overflow: hidden;
 		transition: var(--transition);
 		display: flex;
@@ -249,15 +259,15 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 
 	.post-card:hover {
 		transform: translateY(-4px);
-		border-color: var(--accent-purple);
-		box-shadow: 0 8px 25px rgba(124, 58, 237, 0.15);
+		border-color: var(--primary);
+		box-shadow: var(--shadow-xl);
 	}
 
 	.post-image {
 		width: 100%;
 		height: 200px;
 		overflow: hidden;
-		background: var(--bg-tertiary);
+		background: var(--muted);
 	}
 
 	.post-image img {
@@ -281,11 +291,11 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 	.post-content h3 {
 		font-size: 1.25rem;
 		margin-bottom: 0.75rem;
-		color: var(--text-primary);
+		color: var(--foreground);
 	}
 
 	.post-description {
-		color: var(--text-secondary);
+		color: var(--muted-foreground);
 		margin-bottom: 1rem;
 		font-size: 0.95rem;
 		flex-grow: 1;
@@ -293,13 +303,13 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 
 	.post-date {
 		font-size: 0.85rem;
-		color: var(--text-tertiary);
+		color: var(--muted);
 		margin-bottom: 1rem;
 		display: block;
 	}
 
 	.read-more {
-		color: var(--accent-purple);
+		color: var(--primary);
 		text-decoration: none;
 		font-weight: 600;
 		font-size: 0.95rem;
@@ -307,32 +317,32 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 	}
 
 	.read-more:hover {
-		color: var(--accent-blue);
+		color: var(--accent);
 		text-decoration: none;
 	}
 
 	.no-posts {
 		text-align: center;
-		color: var(--text-secondary);
+		color: var(--muted-foreground);
 		padding: 2rem;
 	}
 
 	.cta-section {
-		background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-blue) 100%);
-		color: white;
+		background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+		color: var(--primary-foreground);
 		padding: 6rem 1rem;
 		text-align: center;
 	}
 
 	.cta-section h2 {
 		font-size: 2.5rem;
-		color: white;
+		color: var(--primary-foreground);
 		margin-bottom: 0.75rem;
 	}
 
 	.cta-section p {
 		font-size: 1.25rem;
-		color: rgba(255, 255, 255, 0.9);
+		color: oklch(1.0000 0 0 / 0.9);
 		margin-bottom: 2rem;
 	}
 
@@ -344,26 +354,26 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 	}
 
 	.cta-section .btn-primary {
-		background: white;
-		color: var(--accent-purple);
-		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+		background: var(--primary-foreground);
+		color: var(--primary);
+		box-shadow: var(--shadow-lg);
 	}
 
 	.cta-section .btn-primary:hover {
-		background: rgba(255, 255, 255, 0.95);
+		background: oklch(1.0000 0 0 / 0.95);
 		text-decoration: none;
-		color: var(--accent-purple);
+		color: var(--primary);
 	}
 
 	.cta-section .btn-secondary {
-		background: rgba(255, 255, 255, 0.2);
-		color: white;
-		border: 1px solid rgba(255, 255, 255, 0.3);
+		background: oklch(1.0000 0 0 / 0.2);
+		color: var(--primary-foreground);
+		border: 1px solid oklch(1.0000 0 0 / 0.3);
 	}
 
 	.cta-section .btn-secondary:hover {
-		background: rgba(255, 255, 255, 0.3);
-		border-color: white;
+		background: oklch(1.0000 0 0 / 0.3);
+		border-color: var(--primary-foreground);
 		text-decoration: none;
 	}
 
@@ -403,4 +413,3 @@ const recentPosts = allPosts.slice(0, 3).sort((a, b) => b.data.pubDate.getTime()
 		}
 	}
 </style>
-
